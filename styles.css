@@ -1,0 +1,35 @@
+#display-text {
+    height: 30px;
+    width: 250px;
+    border: 1px black solid;
+
+}
+
+#calculator-buttons {
+    display: grid;
+    width: 250px;
+    height: 350px;
+
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+
+    row-gap: 5px;
+    column-gap: 5px;
+}
+
+#clear-button {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+#equals-button {
+    grid-row-start: 4;
+    grid-row-end: 6;
+    grid-column-start: 4;
+    
+}
+
+#zero-button {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
