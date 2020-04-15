@@ -3,30 +3,40 @@ let calculator = {
     displayValue: "",
     currentValue: "",
     currentOperation: [],
+    isHoldingOver: false,
 }
 
 // Basic math functions
 function add(a,b) {
-    return a + b;
+    return (a + b).toFixed(2).replace(/[.,]00$/, "");
 }
 
 function subtract(a,b) {
-    return a - b;
+    return (a - b).toFixed(2).replace(/[.,]00$/, "");
 }
 
 function multiply(a,b) {
-    return a * b;
+    return (a * b).toFixed(2).replace(/[.,]00$/, "");
 }
 
 function divide(a,b) {
-    return a / b;
+    return (a / b).toFixed(2).replace(/[.,]00$/, "");
 }
 
 // Operate function, takes the operation string (sign) and uses the math functions
 function operate(operator, aStr, bStr)
 {
-    let a = parseInt(aStr);
-    let b = parseInt(bStr);
+    let a = parseFloat(aStr);
+    let b = parseFloat(bStr);
+
+    if (isNaN(a))
+    {
+        a = parseInt(aStr);
+    }
+    if (isNaN(b))
+    {
+        b = parseInt(bStr);
+    }
     switch(operator)
     {
         case "+":
@@ -52,6 +62,7 @@ function buttonClick(e) {
     
     if (buttonType.includes("number-button"))
     {
+        
         enterNumber(e.target.innerHTML);
     }
     else if (buttonType.includes("clear-button"))
@@ -61,6 +72,10 @@ function buttonClick(e) {
     else if (buttonType.includes("operator-button"))
     {
         enterOperator(e.target.innerHTML);
+    }
+    else if (buttonType.includes("point-button"))
+    {
+        enterPoint();
     }
     else if (buttonType.includes("equals-button"))
     {
@@ -80,17 +95,32 @@ function buttonClick(e) {
 // functions for buttons
 function enterNumber(num)
 {
+    if (calculator.isHoldingOver)
+    {
+        clear();
+    }
     calculator.currentValue += num;
     calculator.displayValue += num;
 }
 
 function enterOperator(operator)
 {
+    calculator.isHoldingOver = false;
     calculator.currentOperation.push(calculator.currentValue);
     calculator.currentValue = "";
+  
     
     calculator.displayValue += ` ${operator} `;
     calculator.currentOperation.push(operator);
+}
+
+function enterPoint()
+{
+    if (!calculator.currentValue.includes("."))
+    {
+        calculator.currentValue += ".";
+        calculator.displayValue += ".";
+    }
 }
 
 function clear()
@@ -99,6 +129,7 @@ function clear()
     calculator.displayValue = "";
     calculator.operators = [];
     calculator.values = [];
+    calculator.isHoldingOver = false;
 }
 
 function equals()
@@ -111,21 +142,28 @@ function equals()
     {
         for (let i = 0; i < calculator.currentOperation.length; i++)
         {
-            if (calculator.currentOperation[i] == "X" || calculator.currentOperation[i] == "/")
+            if (calculator.currentOperation.some(op => op == "X" || op == "/"))
             {
-                calculator.currentOperation.splice(i - 1, 3, operate(calculator.currentOperation[i], calculator.currentOperation[i - 1], calculator.currentOperation[i + 1]));
-                break;
+                if (calculator.currentOperation[i] == "X" || calculator.currentOperation[i] == "/")
+                {
+                    calculator.currentOperation.splice(i - 1, 3, operate(calculator.currentOperation[i], calculator.currentOperation[i - 1], calculator.currentOperation[i + 1]));
+                    break;
+                    
+                }
             }
             else if (calculator.currentOperation[i] == "+" || calculator.currentOperation[i] == "-")
             {
                 calculator.currentOperation.splice(i - 1, 3, operate(calculator.currentOperation[i], calculator.currentOperation[i - 1], calculator.currentOperation[i + 1]));
                 break;
+                
             }
         }
     }
 
     calculator.displayValue = calculator.currentOperation[0];
     calculator.currentValue = calculator.currentOperation[0];
+    calculator.currentOperation = [];
+    calculator.isHoldingOver = true;
 }
 
 //log debug information 
