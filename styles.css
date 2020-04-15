@@ -1,35 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&family=Press+Start+2P&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: rgb(245, 122, 122);
+}
+
+#calculator-container {
+    margin: auto;
+    margin-top: 100px;
+    width: fit-content;
+    height: fit-content;
+    padding: 20px;
+    background-color: rgb(112, 112, 112);
+    border-radius: 10px;
+}
+
 #display-text {
-    height: 30px;
-    width: 250px;
-    border: 1px black solid;
+    height: 80px;
+    width: 348px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: right;
+    background-color: rgb(135, 165, 100);
+    font-size: 1.5em;
+    line-height: 80px;
+    padding-right: 5px;
+    font-family: 'Press Start 2P', cursive;
 
 }
 
 #calculator-buttons {
     display: grid;
-    width: 250px;
-    height: 350px;
+    width: 350px;
+    height: 450px;
 
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
 
-    row-gap: 5px;
-    column-gap: 5px;
+    row-gap: 10px;
+    column-gap: 10px;
+    
 }
 
 #clear-button {
     grid-column-start: 1;
     grid-column-end: 3;
+    background-color: rgb(167, 49, 49);
+    color: whitesmoke;
+    font-size: 2em;
+}
+
+#clear-button:hover {
+    background-color: rgb(141, 42, 42);
 }
 
 #equals-button {
     grid-row-start: 4;
     grid-row-end: 6;
     grid-column-start: 4;
-    
+    background-color: rgb(212, 193, 83);
+    font-size: 2em;
+}
+
+#equals-button:hover {
+    background-color: rgb(184, 167, 73);
 }
 
 #zero-button {
     grid-column-start: 1;
     grid-column-end: 3;
+}
+
+.calc-button {
+    border-radius: 10px;
+    border: none;
+    font-family: 'Baloo Bhai 2', cursive;
+    transition-duration: 0.2s;
+}
+
+.operator-button {
+    background-color: rgb(64, 64, 175);
+    color: whitesmoke;
+    font-size: 2em;
+}
+
+.operator-button:hover {
+    background-color: rgb(56, 56, 148);
+}
+
+.number-button {
+    font-size: 1.8em;
+    background-color: rgb(235, 235, 235);
+}
+
+.number-button:hover {
+    background-color: rgb(199, 199, 199);
+}
+
+.point-button {
+    padding-bottom: 25px;
+    font-size: 3em;
+    background-color: rgb(235, 235, 235)
+}
+
+.point-button:hover {
+    background-color: rgb(199, 199, 199);
 }

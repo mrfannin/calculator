@@ -20,6 +20,10 @@ function multiply(a,b) {
 }
 
 function divide(a,b) {
+    if (b == 0)
+    {
+        return "Error!"
+    }
     return (a / b).toFixed(2).replace(/[.,]00$/, "");
 }
 
@@ -72,6 +76,7 @@ function buttonClick(e) {
     else if (buttonType.includes("operator-button"))
     {
         enterOperator(e.target.innerHTML);
+
     }
     else if (buttonType.includes("point-button"))
     {
